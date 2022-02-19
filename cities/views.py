@@ -4,10 +4,10 @@ from cities.models import City
 
 
 __all__=(
-    'home'
+    'home',
     )
 
 def home(request):
-    qs = City.objects.all()
-    context = {'objects_list': qs}
+    cities = City.objects.all()
+    context = {'objects_list': cities}
     return render(request, 'cities/home.html', context)

@@ -4,8 +4,9 @@ from cities.views import *
 
 
 urlpatterns = [
-    path('', home, name='home'),
-    path('<int:pk>/', home, name='home'),
+    # path('', home, name='home'),
+    # path('<int:pk>/', home, name='home'),
+    path('', CityListView.as_view(), name='home'),
     path('detail/<int:pk>/', CityDetailView.as_view(), name='detail'),
     path('add/', CityCreateView.as_view(), name='create'),
     path('update/<int:pk>/', CityUpdateView.as_view(), name='update'),

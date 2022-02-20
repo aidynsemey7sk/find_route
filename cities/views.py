@@ -1,6 +1,9 @@
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import (
+    DetailView, CreateView, UpdateView, DeleteView, ListView
+    )
+from django.core.paginator import Paginator
 
 from cities.forms import CityForm
 from cities.models import City
@@ -8,22 +11,28 @@ from cities.models import City
 
 __all__=(
     'home', 'CityDetailView', 'CityCreateView', 'CityUpdateView',
-    'CityDeleteView', 
+    'CityDeleteView', 'CityListView'
     )
 
 def home(request, pk=None):
+    '''Отображение с помощью функции'''
     if request.method == 'POST':
         form = CityForm(request.POST)
         if form.is_valid():
             print(form.cleaned_data)
             form.save()
-    # if pk:
-    #     city = get_object_or_404(City, id=pk)
-    #     context = {'objects_list': city}
-    #     return render(request, 'cities/detail.html', context)
+    if pk:
+        city = get_object_or_404(City, id=pk)
+        context = {'objects_list': city}
+        return render(request, 'cities/detail.html', context)
     form = CityForm()
     cities = City.objects.raw("SELECT * FROM cities_city")
-    context = {'objects_list': cities, 'form': form}
+    lst = Paginator(cities, 3)
+    page_number = request.GET.get('page')
+    print(page_number)
+    page_obj = lst.get_page(page_number)
+    print(page_obj)
+    context = {'page_obj': page_obj, 'form': form}
     return render(request, 'cities/home.html', context)
 
 
@@ -53,6 +62,18 @@ class CityDeleteView(DeleteView):
     
     def get(self, request, *args, **kwargs) :
         return self.post(request, *args, **kwargs)
+
+
+class CityListView(ListView):
+    paginate_by = 3
+    model = City
+    template_name = 'cities/home.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        form = CityForm()
+        context['form'] = form
+        return context
 
 
 

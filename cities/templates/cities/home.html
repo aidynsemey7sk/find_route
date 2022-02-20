@@ -9,7 +9,9 @@
       <table class="table table-striped">
          {% for object in page_obj %}
          <tr>
-            <td><a href="{% url 'cities:detail' pk=object.pk %}">{{object.name}}</a></td>
+            <td>
+               <a href="{% url 'cities:detail' pk=object.pk %}">{{object.name}}</a>
+            </td>
             <td><a href="{% url 'cities:update' pk=object.pk %}">
                <button type="submit" class="btn btn-primary">Редактировать</button>
                </a>
@@ -55,7 +57,7 @@
 </nav>
 <div class="row">
    <div class="col-md-4">
-      <form action="" method="post"> {% csrf_token %}
+      <form action="{% url 'cities:create' %}" method="post"> {% csrf_token %}
          {{form.as_p}}
          <input type="submit" value="Submit">
       </form>

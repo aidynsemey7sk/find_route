@@ -7,7 +7,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator
 from django.contrib import messages
 
-#from trains.forms import TrainForm
+from trains.forms import TrainForm
 from trains.models import Train
 
 

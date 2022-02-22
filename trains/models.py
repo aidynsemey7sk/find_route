@@ -1,10 +1,11 @@
-from xml.dom import ValidationErr
 from django.db import models
+from django.forms import ValidationError
 
 from cities.models import City
 
 
 class Train(models.Model):
+    '''trains_train'''
     name = models.CharField(max_length=50, unique=True,
                             verbose_name='Название поезда')
     travel_time = models.PositiveSmallIntegerField(
@@ -30,14 +31,14 @@ class Train(models.Model):
     
     def clean(self) -> None:
         if self.from_city == self.to_city:
-            raise ValidationErr('Изменитьгород прибытия')
+            raise ValidationError('Изменитьгород прибытия')
         qs = Train.objects.filter(from_city=self.from_city, 
                                   to_city=self.to_city, 
                                   travel_time=self.travel_time
                                   ).exclude(pk=self.pk)
         
         if qs.exists():
-            raise ValidationErr('Измените время в пути')
+            raise ValidationError('Измените время в пути')
         
     
     def save(self, *args, **kwargs):

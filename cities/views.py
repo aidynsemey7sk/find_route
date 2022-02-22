@@ -12,30 +12,31 @@ from cities.models import City
 
 
 __all__=(
-    'home', 'CityDetailView', 'CityCreateView', 'CityUpdateView',
+    'CityDetailView', 'CityCreateView', 'CityUpdateView',
     'CityDeleteView', 'CityListView'
+    # 'home',
     )
 
-def home(request, pk=None):
-    '''Отображение с помощью функции'''
-    if request.method == 'POST':
-        form = CityForm(request.POST)
-        if form.is_valid():
-            print(form.cleaned_data)
-            form.save()
-    if pk:
-        city = get_object_or_404(City, id=pk)
-        context = {'objects_list': city}
-        return render(request, 'cities/detail.html', context)
-    form = CityForm()
-    cities = City.objects.raw("SELECT * FROM cities_city")
-    lst = Paginator(cities, 3)
-    page_number = request.GET.get('page')
-    print(page_number)
-    page_obj = lst.get_page(page_number)
-    print(page_obj)
-    context = {'page_obj': page_obj, 'form': form}
-    return render(request, 'cities/home.html', context)
+# def home(request, pk=None):
+#     '''Отображение с помощью функции'''
+#     if request.method == 'POST':
+#         form = CityForm(request.POST)
+#         if form.is_valid():
+#             print(form.cleaned_data)
+#             form.save()
+#     if pk:
+#         city = get_object_or_404(City, id=pk)
+#         context = {'objects_list': city}
+#         return render(request, 'cities/detail.html', context)
+#     form = CityForm()
+#     cities = City.objects.raw("SELECT * FROM cities_city")
+#     lst = Paginator(cities, 3)
+#     page_number = request.GET.get('page')
+#     print(page_number)
+#     page_obj = lst.get_page(page_number)
+#     print(page_obj)
+#     context = {'page_obj': page_obj, 'form': form}
+#     return render(request, 'cities/home.html', context)
 
 
 class CityDetailView(DetailView):

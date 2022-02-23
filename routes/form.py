@@ -16,7 +16,7 @@ class RouteForm(forms.Form):
     cities = forms.ModelMultipleChoiceField(label='Через города', queryset=City.objects.all(),
                                             required=False, widget=forms.SelectMultiple(
                                                 attrs={
-                                                    'class': 'form-control js-example-basic-multiple'
+                                                    'class': 'form-control js-example-basic-multiple',
             }
         )
     )

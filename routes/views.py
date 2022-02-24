@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib import messages
 
 from routes.form import RouteForm
@@ -28,3 +28,13 @@ def find_routes(request):
         form = RouteForm()
         messages.error(request, 'Нет данных для поиска')
         return render(request, 'routes/home.html', {'form': form})
+    
+
+def add_routes(request):
+    if request.method == 'POST':
+        context = {}
+        data = request.POST
+        return render(request, 'routes/create.html', context)
+    else:
+        messages.error(request, 'Невозможно сохранить несуществующий маршрут')
+        return redirect('/')

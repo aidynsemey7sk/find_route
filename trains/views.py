@@ -16,6 +16,7 @@ __all__=(
     'TrainCreateView', 'TrainUpdateView', 'TrainDeleteView', 
     )
 
+
 def home(request, pk=None):
     '''Отображение с помощью функции'''
     trains = Train.objects.raw("SELECT * FROM trains_Train")
@@ -33,12 +34,6 @@ class TrainListView(ListView):
     model = Train
     template_name = 'trains/home.html'
     
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     form = TrainForm()
-    #     context['form'] = form
-    #     return context
-
 
 class TrainDetailView(DetailView):
     queryset = Train.objects.all()
@@ -63,7 +58,6 @@ class TrainUpdateView(SuccessMessageMixin, UpdateView):
 
 class TrainDeleteView(DeleteView):
     model = Train
-    # template_name = 'trains/delete.html'
     success_url = reverse_lazy('trains:home')
     
     def get(self, request, *args, **kwargs) :

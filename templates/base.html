@@ -1,9 +1,9 @@
-{% url 'cities:home' as cities_home_url%}
-{% url 'cities:create' as cities_create_url%}
-{% url 'trains:home' as trains_home_url%}
-{% url 'trains:create' as trains_create_url%}
-{% url 'list' as route_list%}
-{% url 'detail' as route_detail%}
+{% url 'cities:home' as cities_home_url %}
+{% url 'cities:create' as cities_create_url %}
+{% url 'trains:home' as trains_home_url %}
+{% url 'trains:create' as trains_create_url %}
+{% url 'list' as route_list %}
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -29,9 +29,9 @@
             aria-expanded="false" aria-label="Toggle navigation"
             >
 				<span class="navbar-toggler-icon"></span>
-				</button>
+				</button >
 				<div class="collapse navbar-collapse" id="navbarNavDropdown">
-					<ul class="navbar-nav">
+					<ul class="navbar-nav mr-auto">
 						<li class="nav-item">
 							<a class="nav-link 
 								{% if request.path == cities_home_url %}active {% endif %}" href="{% url 'cities:home' %}"
@@ -42,11 +42,10 @@
 								{% if request.path == trains_home_url %}active {% endif %}" href="{% url 'trains:home' %}"
 								>Поезда</a>
 						</li>
-						<li class="nav-item
-						{% if request.path == route_list or request.path == route_detail %}active {% endif %}
-						">
-							<a class="nav-link" href="{% url 'list' %}">Список маршрутов</a>
+						<li class="nav-item">
+							<a class="nav-link {% if request.path == route_list %}active {% endif %}"  href="{% url 'list' %}">Список маршрутов</a>
 						</li>
+						{% if user.is_authenticated %}
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle 
                      {% if request.path == cities_create_url or request.path == trains_create_url %}active {% endif %}" 
@@ -54,11 +53,29 @@
                         >
 							Добавить 
 							</a>
+							
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 								<li><a class="dropdown-item" href="{% url 'trains:create' %}">Новый поезд</a></li>
 								<li><a class="dropdown-item" href="{% url 'cities:create' %}">Новый город</a></li>
 							</ul>
+							
 						</li>
+						{% else %}
+							<li class="nav-item">
+								<a class="nav-link disbled"  href="">Добавить</a>
+							</li>
+							{% endif %}
+						{% if user.is_authenticated %}
+						<li class="nav-item">
+							<a class="nav-link"  href="{% url 'accounts:logout' %}">Выйти</a>
+						</li>
+						{% else %}
+						<li class="nav-item">
+							<a class="nav-link"  href="{% url 'accounts:login' %}">Войти</a>
+						</li>
+						{% endif %}
+						
+						
 					</ul>
 				</div>
 			</div>

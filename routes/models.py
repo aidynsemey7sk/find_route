@@ -5,7 +5,7 @@ from cities.models import City
 
 
 class Route(models.Model):
-    """routes_route"""
+
     name = models.CharField(max_length=50, unique=True,
                             verbose_name='Название маршрута')
     travel_times = models.PositiveSmallIntegerField(
@@ -29,6 +29,3 @@ class Route(models.Model):
         verbose_name = 'Маршрут'
         verbose_name_plural = 'Маршруты'
         ordering = ['travel_times']
-
-        
-    

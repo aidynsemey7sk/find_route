@@ -17,8 +17,8 @@ DB_NAME = os.environ.get('DB_NAME')
 DB_PASSWORD = os.environ.get('DB_PASSWORD')
 DB_USER = os.environ.get('DB_USER')
 DB_HOST = os.environ.get('DB_HOST')
-
-
+SECRET_KEY = os.environ.get('SECRET_KEY')
+DEBUG = os.environ.get('DEBUG')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -28,13 +28,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = os.environ['SECRET_KEY_find_route']
-SECRET_KEY = "django-insecure-b(jpk(h^r0rxm##xw3!cyu$+fv(^78#0rbix64274qqrirm(oi"
-# SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = os.environ['DEBUG_find_route']
-DEBUG = False
+SECRET_KEY = SECRET_KEY
 
-ALLOWED_HOSTS = ['*']
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = DEBUG
+
+ALLOWED_HOSTS = ['find-route-aidyn.herokuapp.com']
 
 
 # Application definition
@@ -145,46 +144,5 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'filters':{
-      'require_debug_true': {
-          '()': 'django.utils.log.RequireDebugTrue',
-      }  
-    },
-    'formatters': {
-        'verbose': {
-            'format': '{levelname} {asctime} {module} {message}',
-            'style':'{',
-        },
-    },
-    
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'filters': ['require_debug_true'],
-            'class': 'logging.StreamHandler',
-        },
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': BASE_DIR.joinpath('log/application.log'),
-            'formatter': 'verbose',
-        }
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': False,
-        },
-        'django.db.backends': {
-            'level': 'DEBUG',
-            'handlers': ['file'],
-        },
-    },
-}
 
 STATIC_ROOT = BASE_DIR.joinpath('staticfiles')

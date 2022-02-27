@@ -13,7 +13,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 
-
+DB_NAME = os.environ.get('DB_NAME')
+DB_PASSWORD = os.environ.get('DB_PASSWORD')
+DB_USER = os.environ.get('DB_USER')
+DB_HOST = os.environ.get('DB_HOST')
 
 
 
@@ -28,7 +31,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # SECRET_KEY = os.environ['SECRET_KEY_find_route']
 SECRET_KEY = "django-insecure-b(jpk(h^r0rxm##xw3!cyu$+fv(^78#0rbix64274qqrirm(oi"
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ['DEBUG_find_route']
+# DEBUG = os.environ['DEBUG_find_route']
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
